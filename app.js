@@ -105,6 +105,17 @@ for (let i = 0; i < addButtons.length; i++) {
   };
 }
 
+var whatsappApiLink = "https://api.whatsapp.com/send?phone=919000000000&text=Order%20details";
+
+function whatsappIntegration () {
+  for (let index = 0; index< items.length; index++){
+    if (items[index].quantity !=0){
+      whatsappApiLink +=  "%0A" + items[index].name + "%20" + items[index].quantity;
+    }
+  }
+  whatsappApiLink +=  "%0A" + "Total%20Price:%20$" + finalDollars + "%20" + finalCents + "cents";
+}
+
 var finalDollars = 0;
 var finalCents = 0;
 
@@ -121,9 +132,11 @@ function updatePrice() {
 }
 
 
+
 cartButton.onclick = () => {
   updatePrice();
-
+  whatsappIntegration();
+  window.open(whatsappApiLink,"_blank");
 
   for (let index = 0; index < items.length; index++) {
     if (items[index].quantity != 0) {
